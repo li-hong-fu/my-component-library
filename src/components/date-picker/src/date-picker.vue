@@ -13,7 +13,7 @@
             <input
                 class="input_inner"
                 type="text"
-                @focus="popoverOpen"
+                @click="popoverOpen"
                 :value="nowValue"
                 placeholder="选择日期"
             />
@@ -214,7 +214,7 @@ export default {
     methods: {
         // 打开popover
         popoverOpen() {
-            this.visible = true;
+            this.visible = !this.visible;
             this.panelType = 'date';
         },
         // 关闭popover
@@ -413,6 +413,7 @@ export default {
 .date-editor:hover .input_close.active {
     display: block;
 }
+
 .input_icon {
     width: 18px;
 }
