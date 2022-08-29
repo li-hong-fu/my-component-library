@@ -1,17 +1,18 @@
 <template>
     <div class="hf-cascader" ref="cascader">
         <!-- input -->
-        <div class="hf-cascader-editor">
+        <div class="hf-cascader-editor" :class="visible ? 'is_focus' : ''">
             <input
                 type="text"
                 class="hf-input_inner"
                 readonly="readonly"
                 autocomplete="off"
-                aria-expanded="false"
+                :aria-expanded="visible"
                 placeholder="请选择"
+                :value="inputVal"
                 @click="popoverOpen"
             />
-            <i class="hf-input_icon icon-arrow-down">
+            <i class="hf-input_icon hf-icon-arrow_down">
                 <svg class="hf-input_suff" viewBox="0 0 1024 1024">
                     <path
                         d="M483.072 714.496l30.165333 30.208 415.957334-415.829333a42.837333 42.837333 0 0 0 0-60.288 42.538667 42.538667 0 0 0-60.330667-0.042667l-355.541333 355.413333-355.242667-355.413333a42.496 42.496 0 0 0-60.288 0 42.837333 42.837333 0 0 0-0.085333 60.330667l383.701333 383.872 1.706667 1.749333z"
@@ -22,23 +23,17 @@
         </div>
         <!-- popover -->
         <div class="hf-cascader-popover" v-show="visible">
-            <my-cascader-item :options="options" @select="onSelect"></my-cascader-item>
-            <!-- <ul class="cascader-list_left">
-                <li v-for="(item, index) in options" :key="index">
-                    <div @click="onSelect(item)">{{ item.label }}</div>
-                </li>
-            </ul>
-            <ul class="cascader-list_right" v-if="list.length > 0">
-                <li v-for="(item, index) in list" :key="index">
-                    <div>{{ item.label }}</div>
-                </li>
-            </ul> -->
+            <my-cascader-item
+                :options="options"
+                :selectData="selectData"
+                :level="0"
+                @change="onChange"
+            ></my-cascader-item>
         </div>
     </div>
 </template>
 
 <script>
-import clickOutside from './outside';
 import MyCascaderItem from './cascader-item.vue';
 
 export default {
@@ -47,10 +42,6 @@ export default {
         MyCascaderItem
     },
     props: {
-        value: {
-            type: Array,
-            default: () => []
-        },
         options: {
             type: Array,
             default: () => []
@@ -59,13 +50,12 @@ export default {
     data() {
         return {
             visible: false,
-            selected: [],
-            nowValue: null // 当前选中值
+            selectData: []
         };
     },
     computed: {
-        list() {
-            return this.selected.children ? this.selected.children : [];
+        inputVal() {
+            return this.selectData.map((item) => item.label).join(' / ');
         }
     },
     mounted() {
@@ -90,13 +80,18 @@ export default {
             }
             this.visible = false;
         },
-        onSelect(item, index) {
-            console.log(item, index);
-            // this.selected = item;
+        // 点击事件
+        onChange(value, index) {
+            console.log(value);
+            this.selectData[index] = value;
+            this.selectData.splice(index, 1, value); //触发更新
+
+            // $emit方法把选择的值传递给父组件
+            let selectArr = this.selectData.map((item) => item.value);
+            this.$emit('input', selectArr);
+
+            if (!value.children) this.visible = false;
         }
-    },
-    directives: {
-        clickOutside: clickOutside
     }
 };
 </script>
@@ -155,11 +150,26 @@ input:hover {
     cursor: pointer;
     display: flex;
 }
-.hf-cascader-editor .icon-arrow-down {
+.hf-cascader-editor .hf-icon-arrow_down {
     right: 10px;
     top: 15px;
+    transition: 0.3s;
 }
 .hf-cascader-editor .hf-input_icon .hf-input_suff {
     width: 12px;
+}
+.hf-cascader-editor.is_focus .hf-icon-arrow_down {
+    transform: rotate(180deg);
+}
+
+/* 弹出层 */
+.hf-cascader-popover {
+    position: absolute;
+    margin: 5px 0;
+    font-size: 14px;
+    background: #fff;
+    border: 1px solid #e4e7ed;
+    border-radius: 4px;
+    box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
 }
 </style>

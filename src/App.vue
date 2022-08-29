@@ -2,7 +2,7 @@
     <div id="app">
         <my-date-picker v-model="time" format="yyyy 年 MM 月 dd 日"></my-date-picker>
         <my-verify-input v-model="verifyInput"></my-verify-input>
-        <my-cascader :options="options"></my-cascader>
+        <my-cascader v-model="cascader" :options="options"></my-cascader>
     </div>
 </template>
 
@@ -14,6 +14,7 @@ export default {
         return {
             time: '',
             verifyInput: '',
+            cascader: '',
             options: [
                 {
                     value: 'zhinan',
@@ -93,6 +94,17 @@ export default {
                 }
             ]
         };
+    },
+    watch: {
+        time(val) {
+            // console.log(val);
+        },
+        verifyInput(val) {
+            // console.log(val, 2);
+        },
+        cascader(val) {
+            // console.log(val, 3);
+        }
     }
 };
 </script>
@@ -109,7 +121,9 @@ body,
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     color: #2c3e50;
 }
 /* #app {
