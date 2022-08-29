@@ -1,7 +1,7 @@
-import VerifyInput from './src/verify-input.vue';
+import MyVerifyInput from './src/verify-input.vue';
 
-VerifyInput.install = function install(Vue) {
-    Vue.component(VerifyInput.name, VerifyInput);
+MyVerifyInput.install = function install(Vue) {
+    Vue.component(MyVerifyInput.name, MyVerifyInput);
 };
 
-export default VerifyInput;
+export default MyVerifyInput;

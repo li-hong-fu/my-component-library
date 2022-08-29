@@ -1,5 +1,5 @@
 <template>
-    <div class="verify-code">
+    <div class="hf-verify-code">
         <input
             type="text"
             v-for="i in inputNums"
@@ -83,7 +83,7 @@ export default {
 </script>
 
 <style>
-.verify-code input {
+.hf-verify-code input {
     border: 1px solid #eee;
     font-size: 14px;
     margin-left: 2px;
@@ -92,13 +92,13 @@ export default {
     border-radius: 5px;
     text-align: center;
 }
-.verify-code input:first {
+.hf-verify-code input:first {
     margin-left: 0;
 }
-.verify-code input:focus {
+.hf-verify-code input:focus {
     outline: none;
 }
-.verify-code input.success {
+.hf-verify-code input.success {
     border-color: #67c23a;
     border-width: 1px;
     transition: border-color 0.5s;
