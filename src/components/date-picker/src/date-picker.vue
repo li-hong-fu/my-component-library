@@ -1,7 +1,7 @@
 <template>
-    <div class="date-picker" ref="picker">
+    <div class="hf-date-picker" ref="picker">
         <!-- input -->
-        <div class="date-editor">
+        <div class="hf-date-editor">
             <span class="input_prefix">
                 <svg class="input_icon icon-date" viewBox="0 0 1024 1024">
                     <path
@@ -29,8 +29,8 @@
         </div>
 
         <!-- popover -->
-        <div class="date-popover" v-show="visible">
-            <div class="date-popover_header">
+        <div class="hf-date-popover" v-show="visible">
+            <div class="hf-date-popover_header">
                 <button class="arrow-left-y" @click="onPrevYear"></button>
                 <button class="arrow-left-m" @click="onPrevMonth"></button>
                 <div>
@@ -42,7 +42,7 @@
                 <button class="arrow-right-m" @click="onNextMonth"></button>
                 <button class="arrow-right-y" @click="onNextYear"></button>
             </div>
-            <div class="date-popover_content">
+            <div class="hf-date-popover_content">
                 <!-- 年面板 -->
                 <table class="date-table type-year" v-show="panelType === 'year'">
                     <tbody>
@@ -99,7 +99,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="date-popover_arrow"></div>
+            <div class="hf-date-popover_arrow"></div>
         </div>
     </div>
 </template>
@@ -355,12 +355,12 @@ export default {
 </script>
 
 <style>
-.date-picker {
+.hf-date-picker {
     position: relative;
     display: inline-block;
 }
 /* input部分 */
-.date-editor {
+.hf-date-editor {
     position: relative;
     font-size: 14px;
     display: inline-block;
@@ -410,7 +410,7 @@ export default {
     top: 10px;
     cursor: pointer;
 }
-.date-editor:hover .input_close.active {
+.hf-date-editor:hover .input_close.active {
     display: block;
 }
 
@@ -419,7 +419,7 @@ export default {
 }
 
 /* popover部分 */
-.date-popover {
+.hf-date-popover {
     z-index: 2022;
     position: absolute;
     top: 40px;
@@ -438,12 +438,12 @@ table {
     width: 100%;
 }
 /* 日期选择器头部 */
-.date-popover .date-popover_header {
+.hf-date-popover .hf-date-popover_header {
     margin: 12px;
     display: flex;
     align-items: center;
 }
-.date-popover .date-popover_header button {
+.hf-date-popover .hf-date-popover_header button {
     cursor: pointer;
     width: 20px;
     height: 20px;
@@ -451,10 +451,10 @@ table {
     border: 0;
     background: transparent;
 }
-.date-popover .date-popover_header div {
+.hf-date-popover .hf-date-popover_header div {
     flex: 1;
 }
-.date-popover .date-popover_header span {
+.hf-date-popover .hf-date-popover_header span {
     font-size: 14px;
     padding: 0 5px;
     line-height: 20px;
@@ -462,7 +462,7 @@ table {
     cursor: pointer;
     color: #606266;
 }
-.date-popover .date-popover_header span:hover {
+.hf-date-popover .hf-date-popover_header span:hover {
     color: #409eff;
 }
 button:hover::before,
@@ -517,7 +517,7 @@ button:hover::after {
 }
 
 /* 日期选择器内容 */
-.date-popover_content {
+.hf-date-popover_content {
     width: 300px;
     font-size: 12px;
 }
@@ -588,7 +588,7 @@ button:hover::after {
 }
 
 /* arrow */
-.date-popover_arrow {
+.hf-date-popover_arrow {
     position: absolute;
     top: -12px;
     left: 15%;
@@ -598,7 +598,7 @@ button:hover::after {
     border-top: 6px solid transparent;
     border-bottom: 6px solid #e4e7ed;
 }
-.date-popover_arrow::after {
+.hf-date-popover_arrow::after {
     content: '';
     position: absolute;
     top: -5px;
