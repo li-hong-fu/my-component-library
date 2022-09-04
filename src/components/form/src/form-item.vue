@@ -13,12 +13,14 @@
 import schema from 'async-validator';
 export default {
     name: 'MyFormItem',
+    // 注入form,使用form提供的数据模型model和效验规则rules
     inject: ['form'],
     props: {
         label: {
             type: String,
             default: ''
         },
+        // 用于获取指定字段值和校验规则
         prop: {
             type: String,
             default: ''
@@ -30,22 +32,27 @@ export default {
         };
     },
     mounted() {
+        // 监听input组件的this.$parent.$emit('validate')
         this.$on('validate', () => this.validate());
     },
     methods: {
+        // 效验
         validate() {
+            let state = false;
+            // 获取值和效验规则
             const value = this.form.model[this.prop];
             const rule = this.form.rules[this.prop];
-
-            let validator = new schema({ [this.prop]: rule });
-
-            return validator.validate({ [this.prop]: value }, (errors, fields) => {
-                if (errors) {
-                    this.errorMsg = errors[0].message;
-                } else {
-                    this.errorMsg = '';
-                }
+            // 创建schema实例 { username:rules }
+            const validator = new schema({ [this.prop]: rule });
+            // 执行校验，校验对象回调函数
+            validator.validate({ [this.prop]: value }, (errors, fields) => {
+                // formItem验证不通过返回提示消息
+                errors ? (this.errorMsg = errors[0].message) : (this.errorMsg = '');
+                // 返回formItem是否验证通过
+                errors ? (state = false) : (state = true);
             });
+
+            return state;
         }
     }
 };

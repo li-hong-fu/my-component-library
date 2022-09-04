@@ -23,6 +23,9 @@
             <my-form-item label="时间" prop="date">
                 <my-input v-model="form.date"></my-input>
             </my-form-item>
+            <my-form-item>
+                <button @click="submitForm">提交</button>
+            </my-form-item>
         </my-form>
     </div>
 </template>
@@ -160,6 +163,13 @@ export default {
         },
         cascader(val) {
             // console.log(val, 3);
+        }
+    },
+    methods: {
+        submitForm() {
+            this.$refs['form'].validate((isValid) => {
+                console.log(isValid);
+            });
         }
     }
 };

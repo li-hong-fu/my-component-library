@@ -20,8 +20,10 @@ export default {
     },
     methods: {
         inputHandler(e) {
+            // 派发事件
             this.$emit('input', e.target.value);
             // 通知校验
+            // 父组件通过this.$on方法监听validate事件
             this.$parent.$emit('validate');
         }
     }
