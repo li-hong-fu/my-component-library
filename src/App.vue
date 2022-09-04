@@ -4,7 +4,7 @@
         <my-verify-input v-model="verifyInput"></my-verify-input>
         <my-cascader v-model="cascader" :options="options"></my-cascader>
 
-        <my-table :data="tableData" style="width: 100%">
+        <my-table :data="tableData">
             <my-table-column prop="name" label="姓名"></my-table-column>
             <my-table-column prop="date" label="日期"></my-table-column>
             <my-table-column prop="address" label="地址"></my-table-column>
@@ -15,6 +15,15 @@
                 </template>
             </my-table-column>
         </my-table>
+
+        <my-form ref="form" :model="form" :rules="rules">
+            <my-form-item label="名称" prop="name">
+                <my-input v-model="form.name"></my-input>
+            </my-form-item>
+            <my-form-item label="时间" prop="date">
+                <my-input v-model="form.date"></my-input>
+            </my-form-item>
+        </my-form>
     </div>
 </template>
 
@@ -127,7 +136,19 @@ export default {
                     name: '王小虎',
                     address: '上海市普陀区金沙江路 1516 弄'
                 }
-            ]
+            ],
+
+            form: {
+                name: '',
+                date: ''
+            },
+            rules: {
+                name: [
+                    { required: true, message: '请输入活动名称', trigger: 'blur' },
+                    { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+                ],
+                date: [{ type: 'date', required: true, message: '请选择日期', trigger: 'change' }]
+            }
         };
     },
     watch: {

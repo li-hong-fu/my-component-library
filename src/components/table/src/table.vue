@@ -14,7 +14,7 @@ export default {
     },
     render() {
         return (
-            <div>
+            <div class="hf-table">
                 {/* my-table-column默认插槽的内容，默认隐藏掉不显示 */}
                 <div style={{ display: 'none' }}>{this.$slots.default}</div>
                 <table cellspacing="0" cellpadding="0">
