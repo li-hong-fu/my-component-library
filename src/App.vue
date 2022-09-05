@@ -27,6 +27,8 @@
                 <button @click="submitForm">提交</button>
             </my-form-item>
         </my-form>
+
+        <my-svg-icon icon="left" class-name="my-icon"></my-svg-icon>
     </div>
 </template>
 

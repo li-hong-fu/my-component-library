@@ -1,3 +1,4 @@
+import Icon from './icons/index.js';
 import DatePicker from "./date-picker/index.js";
 import VerifyInput from "./verify-input/index.js";
 import Cascader from './cascader/index.js';
@@ -8,7 +9,7 @@ import Form from './form/index.js';
 import FormItem from './form-item/index.js';
 
 const components = [
-    DatePicker, VerifyInput, Cascader,
+    Icon, DatePicker, VerifyInput, Cascader,
     Table, TableColumn, Form, FormItem, Input
 ];
 
@@ -20,6 +21,7 @@ const install = function (Vue) {
 
 export default {
     install,
+    Icon,
     DatePicker,
     VerifyInput,
     Cascader,
